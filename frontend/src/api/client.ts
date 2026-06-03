@@ -47,14 +47,14 @@ export async function streamSpeech(
   if (!response.ok || !response.body) throw new Error(await parseError(response));
 
   const reader = response.body.getReader();
-  const chunks: Uint8Array[] = [];
+  const chunks: BlobPart[] = [];
   let received = 0;
 
   while (true) {
     const { done, value } = await reader.read();
     if (done) break;
     if (value) {
-      chunks.push(value);
+      chunks.push(value.buffer.slice(value.byteOffset, value.byteOffset + value.byteLength));
       received += value.byteLength;
       onProgress(received);
     }
