@@ -1,0 +1,10 @@
+.env
+.env.local
+venv/
+__pycache__/
+*.pyc
+node_modules/
+dist/
+frontend_dist/
+.DS_Store
+.railway/
